@@ -1,0 +1,44 @@
+---
+/**
+ * Macmo mark + wordmark.
+ * Minimal, technical, macOS-inspired: rounded-square command window
+ * with an observation eye motif. Inline SVG so it inherits currentColor.
+ */
+interface Props {
+  class?: string;
+  showWordmark?: boolean;
+}
+
+const { class: className = '', showWordmark = true } = Astro.props;
+---
+
+<span class:list={['inline-flex items-center gap-2.5', className]}>
+  <svg
+    viewBox="0 0 32 32"
+    class="size-7 shrink-0"
+    role="img"
+    aria-label="Macmo"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect x="1" y="1" width="30" height="30" rx="8" fill="#141619" stroke="rgba(255,255,255,0.14)" stroke-width="1.5"></rect>
+    <path d="M6 9.5h14" stroke="rgba(255,255,255,0.28)" stroke-width="1.6" stroke-linecap="round"></path>
+    <circle cx="8.6" cy="9.5" r="1" fill="#FF5F57"></circle>
+    <circle cx="12" cy="9.5" r="1" fill="#FEBC2E"></circle>
+    <circle cx="15.4" cy="9.5" r="1" fill="#28C840"></circle>
+    <path
+      d="M7 21c2.6-4.4 6.2-6.6 9.6-6.6S23.4 16.6 26 21"
+      stroke="#0A84FF"
+      stroke-width="2"
+      stroke-linecap="round"></path>
+    <circle cx="16.5" cy="19.4" r="2.6" fill="#0A84FF"></circle>
+    <circle cx="16.5" cy="19.4" r="1.1" fill="#0B0C0E"></circle>
+  </svg>
+  {
+    showWordmark && (
+      <span class="text-[0.95rem] font-semibold tracking-[0.18em] text-text uppercase">
+        Macmo
+      </span>
+    )
+  }
+</span>

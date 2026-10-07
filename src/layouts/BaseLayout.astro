@@ -1,0 +1,43 @@
+---
+import '../styles/global.css';
+import Seo from '../components/seo/Seo.astro';
+import SiteHeader from '../components/layout/SiteHeader.astro';
+import SiteFooter from '../components/layout/SiteFooter.astro';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  noindex?: boolean;
+}
+
+const { title, description, canonical, noindex = false } = Astro.props;
+---
+
+<!doctype html>
+<html lang={site.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0b0c0e" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <Seo title={title} description={description} canonical={canonical} noindex={noindex} />
+  </head>
+  <body class="flex min-h-screen flex-col bg-base text-text">
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <SiteHeader />
+    <main id="main-content" class="flex-1">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

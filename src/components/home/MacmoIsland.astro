@@ -1,0 +1,91 @@
+---
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import StateChip from '../ui/StateChip.astro';
+import Badge from '../ui/Badge.astro';
+import { island } from '../../data/features';
+import { stateById } from '../../data/states';
+
+const working = stateById('WORKING');
+---
+
+<Section>
+  <Container>
+    <div class="flex flex-col gap-12 lg:flex-row-reverse lg:items-start lg:justify-between lg:gap-16">
+      <div class="w-full lg:max-w-lg">
+        <div class="mb-3 flex items-center justify-between gap-4">
+          <p class="micro-label">Macmo Island</p>
+          <Badge tone="planned">Concept UI</Badge>
+        </div>
+
+        {/* Compact state */}
+        <div class="window-chrome max-w-sm p-4">
+          <div class="flex items-center gap-3">
+            <span
+              class="flex size-10 items-center justify-center rounded-[9px] bg-accent/15 text-sm font-semibold text-text hairline"
+              aria-hidden="true"
+            >
+              CC
+            </span>
+            <div class="min-w-0 flex-1">
+              <p class="truncate text-sm font-medium">Claude Code</p>
+              {working && (
+                <StateChip label={working.id} tone={working.tone} pulse class="mt-1" />
+              )}
+            </div>
+            <span class="micro-label">Compact</span>
+          </div>
+          <p class="mt-3 truncate border-t pt-3 text-xs text-text-muted hairline-t">
+            Refactoring <span class="font-mono text-text">auth/session.ts</span>
+          </p>
+        </div>
+
+        {/* Approval state */}
+        <div class="window-chrome mt-4 max-w-sm p-4">
+          <div class="flex items-center justify-between gap-3">
+            <p class="micro-label text-state-approval">Approval Request</p>
+            <span class="micro-label">Approval</span>
+          </div>
+          <p class="mt-3 text-sm text-text-muted">
+            <span class="font-medium text-text">Claude Code</span> wants to execute:
+          </p>
+          <p class="mt-2 rounded-card bg-base px-3 py-2 font-mono text-xs text-text hairline">
+            npm install
+          </p>
+          <div class="mt-4 flex gap-2" aria-hidden="true">
+            <span
+              class="inline-flex flex-1 items-center justify-center rounded-card bg-accent-solid px-4 py-2 text-sm font-medium text-white"
+              >Approve</span
+            >
+            <span
+              class="inline-flex flex-1 items-center justify-center rounded-card bg-surface-raised px-4 py-2 text-sm font-medium text-text-muted hairline"
+              >Reject</span
+            >
+          </div>
+        </div>
+
+        <p class="micro-note mt-3 text-text-faint">
+          {island.footnote}
+        </p>
+      </div>
+
+      <SectionHeading
+        kicker={island.kicker}
+        title={island.title}
+        body={island.body}
+        reference={island.reference}
+      />
+    </div>
+
+    <ul class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      {
+        island.items.map((item) => (
+          <li class="rounded-card bg-surface px-4 py-3.5 text-sm text-text-muted hairline">
+            {item}
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+</Section>

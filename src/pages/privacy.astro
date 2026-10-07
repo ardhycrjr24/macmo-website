@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import { HardDrive, EyeOff, Network, Database, ShieldCheck } from '@lucide/astro';
+---
+
+<BaseLayout
+  title="Privacy"
+  description="How Macmo approaches privacy: local-first architecture, no mandatory cloud backend, local-only IPC, secure credential storage, and no required telemetry."
+  canonical="https://macmo.anakterubuk.tech/privacy"
+>
+  <Section>
+    <Container>
+      <SectionHeading
+        kicker="Privacy"
+        title="Local-first by design."
+        body="This page describes how Macmo approaches privacy and security during V1 development. It reflects the product requirements defined in the Macmo V1 PRD and may change as the product evolves."
+        reference="Based on PRD §22 Security · §23 Privacy"
+        level="h1"
+      />
+
+      <div class="mt-12 grid gap-8 lg:grid-cols-2">
+        <div class="rounded-card bg-surface p-6 hairline">
+          <HardDrive class="size-5 text-accent" aria-hidden="true" />
+          <h2 class="mt-4 text-lg font-semibold">Default model</h2>
+          <p class="mt-4 font-mono text-sm text-text-muted">
+            Your Agents <span class="text-text-faint">↓</span><br />
+            Your Mac <span class="text-text-faint">↓</span><br />
+            Macmo
+          </p>
+          <p class="mt-4 text-sm leading-relaxed text-text-muted">
+            Macmo V1 is designed so the core product does not depend on a cloud
+            service. There is no mandatory cloud backend, accounts, or
+            synchronization in V1.
+          </p>
+        </div>
+
+        <div class="rounded-card bg-surface p-6 hairline">
+          <EyeOff class="size-5 text-accent" aria-hidden="true" />
+          <h2 class="mt-4 text-lg font-semibold">Telemetry</h2>
+          <p class="mt-4 text-sm leading-relaxed text-text-muted">
+            Macmo V1 does not require telemetry. If telemetry is ever
+            introduced, it is specified to be opt-in, documented, minimal, and
+            configurable.
+          </p>
+        </div>
+
+        <div class="rounded-card bg-surface p-6 hairline">
+          <Network class="size-5 text-accent" aria-hidden="true" />
+          <h2 class="mt-4 text-lg font-semibold">Local communication</h2>
+          <ul class="mt-4 space-y-2.5 text-sm text-text-muted">
+            <li>Local-only inter-process communication over Unix Domain Sockets</li>
+            <li>No public network exposure for the IPC layer</li>
+            <li>Event schema and payload validation</li>
+            <li>Malformed events are rejected</li>
+          </ul>
+        </div>
+
+        <div class="rounded-card bg-surface p-6 hairline">
+          <Database class="size-5 text-accent" aria-hidden="true" />
+          <h2 class="mt-4 text-lg font-semibold">Data on your Mac</h2>
+          <ul class="mt-4 space-y-2.5 text-sm text-text-muted">
+            <li>SQLite stores local application state</li>
+            <li>Credentials are stored in the macOS Keychain</li>
+            <li>SQLite does not replace secure credential storage</li>
+            <li>Permission decisions are logged locally</li>
+          </ul>
+        </div>
+
+        <div class="rounded-card bg-surface p-6 hairline lg:col-span-2">
+          <ShieldCheck class="size-5 text-accent" aria-hidden="true" />
+          <h2 class="mt-4 text-lg font-semibold">Security principles</h2>
+          <ul class="mt-4 grid gap-2.5 text-sm text-text-muted sm:grid-cols-2">
+            <li>Local-first</li>
+            <li>Least privilege</li>
+            <li>No unnecessary network listeners</li>
+            <li>Secure credential storage</li>
+            <li>Explicit permissions</li>
+            <li>Event validation</li>
+            <li>Audit logging</li>
+            <li>Human-controlled approvals</li>
+          </ul>
+          <p class="micro-note mt-6 text-text-faint">
+            Macmo is in early development. Nothing on this site is a legal
+            guarantee or a claim of certification.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

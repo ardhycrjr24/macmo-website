@@ -1,0 +1,50 @@
+---
+import Container from '../ui/Container.astro';
+import Button from '../ui/Button.astro';
+import Badge from '../ui/Badge.astro';
+import { hero } from '../../data/features';
+import { ArrowRight } from '@lucide/astro';
+---
+
+<section id="top" class="relative overflow-hidden pt-20 pb-24 sm:pt-28 sm:pb-32">
+  {/* Faint grid — static, no animation */}
+  <div
+    class="pointer-events-none absolute inset-0 opacity-[0.35]"
+    aria-hidden="true"
+    style="background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 40%, transparent 100%);"
+  ></div>
+
+  <Container class="relative">
+    <p class="micro-label mb-6 tracking-[0.28em]">{hero.eyebrow}</p>
+
+    <h1 class="max-w-3xl text-4xl leading-[1.05] font-semibold tracking-tight sm:text-6xl">
+      {hero.headline[0]}
+      <br />
+      <span class="text-text-muted">{hero.headline[1]}</span>
+    </h1>
+
+    <ul class="mt-8 max-w-xl space-y-1.5">
+      {
+        hero.support.map((line) => (
+          <li class="text-base text-text-muted sm:text-lg">{line}</li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-10 flex flex-wrap items-center gap-3">
+      <Button href={hero.primaryCta.href}>
+        {hero.primaryCta.label}
+        <ArrowRight class="size-4" aria-hidden="true" />
+      </Button>
+      <Button href={hero.secondaryCta.href} variant="secondary">
+        {hero.secondaryCta.label}
+      </Button>
+      <Badge tone="accent" class="ml-1">{hero.status}</Badge>
+    </div>
+
+    <p class="micro-note mt-10 text-text-faint">
+      Not an AI chatbot, model, or cloud platform — a local observation and
+      control layer for AI agents.
+    </p>
+  </Container>
+</section>

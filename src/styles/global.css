@@ -1,0 +1,195 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   Macmo design tokens — dark-only V1.
+   Native macOS inspired: hairline borders, restrained blue accent,
+   monospace micro-labels, minimal shadows.
+   ========================================================================== */
+
+@theme {
+  /* Surfaces */
+  --color-base: #0b0c0e;
+  --color-surface: #141619;
+  --color-surface-raised: #1a1d21;
+  --color-hairline: rgba(255, 255, 255, 0.08);
+  --color-hairline-strong: rgba(255, 255, 255, 0.14);
+
+  /* Text */
+  --color-text: #f5f5f7;
+  --color-text-muted: #989aa0;
+  --color-text-faint: #7e8188;
+
+  /* Accent — restrained macOS system blue */
+  --color-accent: #0a84ff;
+  --color-accent-hover: #3f9dff;
+  /* Solid accent for filled buttons (white text passes WCAG AA) */
+  --color-accent-solid: #0071e3;
+  --color-accent-solid-hover: #0066d6;
+
+  /* Agent state palette (presentation only; states defined in PRD §10) */
+  --color-state-offline: #5b5f66;
+  --color-state-starting: #bf5af2;
+  --color-state-idle: #8e9196;
+  --color-state-thinking: #5ac8fa;
+  --color-state-working: #30d158;
+  --color-state-waiting: #ffd60a;
+  --color-state-approval: #ff9f0a;
+  --color-state-completed: #64d2ff;
+  --color-state-error: #ff453a;
+  --color-state-stopping: #ff375f;
+
+  /* Typography */
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display',
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono:
+    ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', monospace;
+
+  /* macOS-like radii */
+  --radius-card: 10px;
+  --radius-chip: 999px;
+
+  /* Spacing rhythm */
+  --spacing-section: 6rem;
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    scrollbar-gutter: stable;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-base);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+    color: var(--color-text);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Utilities
+   -------------------------------------------------------------------------- */
+
+@utility hairline {
+  border: 1px solid var(--color-hairline);
+}
+
+@utility hairline-t {
+  border-top: 1px solid var(--color-hairline);
+}
+
+@utility hairline-b {
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+/* Monospace micro-label — used for states, protocol events, timestamps */
+@utility micro-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* Monospace micro-note — small supporting text, sentence case */
+@utility micro-note {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+/* Subtle macOS window chrome for concept UI mocks */
+@utility window-chrome {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-card);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.04) inset,
+    0 24px 48px -24px rgba(0, 0, 0, 0.6);
+}
+
+/* Faint status pulse for WORKING indicators — respects reduced motion via base */
+@utility state-pulse {
+  animation: state-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes state-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* Skip link */
+@utility skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100%;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-surface-raised);
+  border: 1px solid var(--color-hairline-strong);
+  border-radius: var(--radius-card);
+  color: var(--color-text);
+  font-size: 0.875rem;
+
+  &:focus-visible {
+    top: 1rem;
+  }
+}

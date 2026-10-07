@@ -1,0 +1,64 @@
+---
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Badge from '../ui/Badge.astro';
+import { permission } from '../../data/features';
+---
+
+<Section>
+  <Container>
+    <div class="flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
+      <SectionHeading
+        kicker={permission.kicker}
+        title={permission.title}
+        body={permission.body}
+        reference={permission.reference}
+      />
+
+      <div class="w-full lg:max-w-md">
+        <div class="mb-3 flex items-center justify-between gap-4">
+          <p class="micro-label">Permission Gateway</p>
+          <Badge tone="planned">Concept UI</Badge>
+        </div>
+
+        <div class="window-chrome p-5">
+          <p class="text-sm text-text-muted">
+            <span class="font-medium text-text">Claude Code</span> wants to execute:
+          </p>
+          <p class="mt-3 rounded-card bg-base px-3 py-2.5 font-mono text-sm text-text hairline">
+            npm install
+          </p>
+          <div class="mt-4 flex gap-2" aria-hidden="true">
+            <span
+              class="inline-flex flex-1 items-center justify-center rounded-card bg-accent-solid px-4 py-2 text-sm font-medium text-white"
+              >Allow</span
+            >
+            <span
+              class="inline-flex flex-1 items-center justify-center rounded-card bg-surface-raised px-4 py-2 text-sm font-medium text-text-muted hairline"
+              >Reject</span
+            >
+          </div>
+          <p class="micro-note mt-4 border-t pt-4 text-text-faint hairline-t">
+            Decision logged locally — audit trail
+          </p>
+        </div>
+
+        <p class="micro-note mt-3 text-text-faint">
+          {permission.footnote}
+        </p>
+      </div>
+    </div>
+
+    <ul class="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        permission.items.map((item) => (
+          <li class="rounded-card bg-surface p-5 hairline">
+            <p class="micro-label text-accent">{item.label}</p>
+            <p class="mt-2.5 text-sm text-text-muted">{item.detail}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+</Section>

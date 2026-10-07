@@ -1,0 +1,26 @@
+---
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import Button from '../ui/Button.astro';
+import { finalCta } from '../../data/features';
+import { ArrowUpRight } from '@lucide/astro';
+---
+
+<Section>
+  <Container class="text-center">
+    <h2 class="mx-auto max-w-2xl text-3xl leading-tight font-semibold tracking-tight sm:text-5xl">
+      {finalCta.title[0]}
+      <br />
+      <span class="text-text-muted">{finalCta.title[1]}</span>
+    </h2>
+
+    <div class="mt-9 flex justify-center">
+      <Button href={finalCta.primaryCta.href} rel="noopener noreferrer" target="_blank">
+        {finalCta.primaryCta.label}
+        <ArrowUpRight class="size-4" aria-hidden="true" />
+      </Button>
+    </div>
+
+    <p class="micro-label mt-6">{finalCta.footnote}</p>
+  </Container>
+</Section>

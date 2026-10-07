@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import AgentVisibility from '../components/home/AgentVisibility.astro';
+import MacmoIsland from '../components/home/MacmoIsland.astro';
+import ProtocolFlow from '../components/home/ProtocolFlow.astro';
+import PermissionGateway from '../components/home/PermissionGateway.astro';
+import AvatarStates from '../components/home/AvatarStates.astro';
+import PrivacyModel from '../components/home/PrivacyModel.astro';
+import SupportedAgents from '../components/home/SupportedAgents.astro';
+import FinalCta from '../components/home/FinalCta.astro';
+---
+
+<BaseLayout>
+  <Hero />
+  <div class="divide-y divide-hairline border-t border-hairline">
+    <AgentVisibility />
+    <MacmoIsland />
+    <ProtocolFlow />
+    <PermissionGateway />
+    <AvatarStates />
+    <PrivacyModel />
+    <SupportedAgents />
+    <FinalCta />
+  </div>
+</BaseLayout>

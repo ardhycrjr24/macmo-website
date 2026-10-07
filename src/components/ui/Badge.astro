@@ -1,0 +1,27 @@
+---
+/**
+ * Status badge. Tone determines color only — label always carries meaning.
+ */
+interface Props {
+  tone?: 'default' | 'accent' | 'planned';
+  class?: string;
+}
+
+const { tone = 'default', class: className = '' } = Astro.props;
+
+const tones = {
+  default: 'hairline bg-surface text-text-muted',
+  accent: 'border border-accent/40 bg-accent/10 text-accent',
+  planned: 'border border-dashed border-hairline-strong bg-transparent text-text-muted',
+};
+---
+
+<span
+  class:list={[
+    'micro-label inline-flex items-center rounded-chip px-2.5 py-1.5',
+    tones[tone],
+    className,
+  ]}
+>
+  <slot />
+</span>

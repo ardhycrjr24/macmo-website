@@ -1,0 +1,40 @@
+---
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Badge from '../ui/Badge.astro';
+import { supportedAgents } from '../../data/features';
+import { AGENT_RUNTIMES } from '../../data/agents';
+---
+
+<Section id={supportedAgents.id}>
+  <Container>
+    <SectionHeading
+      kicker={supportedAgents.kicker}
+      title={supportedAgents.title}
+      body={supportedAgents.body}
+      reference={supportedAgents.reference}
+    />
+
+    <ul class="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        AGENT_RUNTIMES.map((runtime) => (
+          <li class="flex items-center justify-between gap-4 rounded-card bg-surface p-5 hairline">
+            <div class="min-w-0">
+              <p class="text-sm font-medium text-text">{runtime.name}</p>
+              {runtime.note && (
+                <p class="mt-1.5 text-xs text-text-muted">{runtime.note}</p>
+              )}
+            </div>
+            <Badge tone="planned">{runtime.status}</Badge>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="micro-note mt-6 text-text-faint">
+      Planned targets for early development. Adapter support is not shipped
+      yet — no integration is presented as production-ready.
+    </p>
+  </Container>
+</Section>

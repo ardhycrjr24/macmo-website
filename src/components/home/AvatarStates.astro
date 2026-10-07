@@ -1,0 +1,52 @@
+---
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { avatars } from '../../data/features';
+import { avatarSectionStates } from '../../data/states';
+---
+
+<Section>
+  <Container>
+    <SectionHeading
+      kicker={avatars.kicker}
+      title={avatars.title}
+      body={avatars.body}
+      reference={avatars.reference}
+    />
+
+    <ul class="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      {
+        avatarSectionStates.map((state) => (
+          <li class="rounded-card bg-surface p-5 text-center hairline">
+            {/* Abstract avatar — geometric only, state-driven */}
+            <span
+              class="mx-auto flex size-14 items-center justify-center rounded-[14px] bg-surface-raised hairline"
+              style={`border-color: ${state.hex}44`}
+              aria-hidden="true"
+            >
+              <span class="flex gap-2">
+                <span
+                  class="size-2 rounded-full"
+                  style={`background-color: ${state.hex}`}
+                />
+                <span
+                  class="size-2 rounded-full"
+                  style={`background-color: ${state.hex}`}
+                />
+              </span>
+            </span>
+            <p class="micro-label mt-4 text-text">{state.id}</p>
+            <p class="mt-2 text-xs text-text-muted">
+              {state.avatar ? state.avatar.behavior : 'No defined behavior'}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="micro-note mt-6 text-text-faint">
+      {avatars.footnote}
+    </p>
+  </Container>
+</Section>

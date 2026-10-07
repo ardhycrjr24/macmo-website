@@ -1,0 +1,39 @@
+---
+/**
+ * Agent state chip: color dot + explicit label.
+ * State is never conveyed by color alone.
+ */
+interface Props {
+  label: string;
+  tone: 'offline' | 'starting' | 'idle' | 'thinking' | 'working' | 'waiting' | 'approval' | 'completed' | 'error' | 'stopping';
+  pulse?: boolean;
+  class?: string;
+}
+
+const { label, tone, pulse = false, class: className = '' } = Astro.props;
+
+const toneColors = {
+  offline: 'bg-state-offline',
+  starting: 'bg-state-starting',
+  idle: 'bg-state-idle',
+  thinking: 'bg-state-thinking',
+  working: 'bg-state-working',
+  waiting: 'bg-state-waiting',
+  approval: 'bg-state-approval',
+  completed: 'bg-state-completed',
+  error: 'bg-state-error',
+  stopping: 'bg-state-stopping',
+} as const;
+---
+
+<span class:list={['inline-flex items-center gap-2', className]}>
+  <span
+    class:list={[
+      'size-2 shrink-0 rounded-full',
+      toneColors[tone],
+      pulse && 'state-pulse',
+    ]}
+    aria-hidden="true"
+  ></span>
+  <span class="micro-label">{label}</span>
+</span>

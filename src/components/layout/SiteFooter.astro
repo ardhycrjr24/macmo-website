@@ -1,0 +1,45 @@
+---
+import Logo from './Logo.astro';
+import Container from '../ui/Container.astro';
+import { footerLinks, site, studio } from '../../data/site';
+---
+
+<footer class="hairline-t mt-auto bg-base">
+  <Container class="flex flex-col gap-8 py-12 md:flex-row md:items-start md:justify-between">
+    <div class="max-w-sm">
+      <Logo />
+      <p class="mt-4 text-sm text-text-muted">{site.tagline}.</p>
+      <p class="micro-note mt-4">
+        {site.name} by {studio.name}
+      </p>
+      <p class="micro-label mt-2">{site.status}</p>
+    </div>
+
+    <nav aria-label="Footer">
+      <ul class="flex flex-col gap-3 md:items-end">
+        {
+          footerLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-sm text-text-muted transition-colors hover:text-text"
+                {...(link.href.startsWith('http')
+                  ? { rel: 'noopener noreferrer' }
+                  : {})}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </Container>
+
+  <Container class="hairline-t py-6">
+    <p class="micro-note">
+      &copy; {new Date().getFullYear()} {studio.name}. {site.name} is in early
+      development.
+    </p>
+  </Container>
+</footer>

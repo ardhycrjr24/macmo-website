@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Button from '../components/ui/Button.astro';
+import { contact, studio } from '../data/site';
+import { Mail, Globe } from '@lucide/astro';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Contact ANAK TERUBUK about Macmo, the AI Agent Command Center for macOS."
+  canonical="https://macmo.anakterubuk.tech/contact"
+>
+  <Section>
+    <Container>
+      <SectionHeading
+        kicker="Contact"
+        title="Talk to us about Macmo."
+        body="Macmo is built by ANAK TERUBUK, an independent software and AI studio. Questions, feedback, or collaboration ideas are welcome."
+        level="h1"
+      />
+
+      <div class="mt-10 flex flex-wrap items-center gap-3">
+        <Button href={`mailto:${contact.email}`}>
+          <Mail class="size-4" aria-hidden="true" />
+          {contact.email}
+        </Button>
+        <Button href={studio.url} variant="secondary" target="_blank" rel="noopener noreferrer">
+          <Globe class="size-4" aria-hidden="true" />
+          {studio.name}
+        </Button>
+      </div>
+
+      <p class="micro-note mt-8 text-text-faint">
+        Macmo is in early development. There is no support desk, ticketing
+        system, or product availability yet — email is the contact channel.
+      </p>
+    </Container>
+  </Section>
+</BaseLayout>

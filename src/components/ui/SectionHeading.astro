@@ -1,0 +1,27 @@
+---
+interface Props {
+  kicker: string;
+  title: string;
+  body?: string;
+  reference?: string;
+  level?: 'h1' | 'h2';
+}
+
+const { kicker, title, body, reference, level = 'h2' } = Astro.props;
+const Heading = level;
+---
+
+<div class="max-w-3xl">
+  <p class="micro-label text-accent">{kicker}</p>
+  <Heading class="mt-4 text-3xl leading-tight font-semibold tracking-tight sm:text-4xl">
+    {title}
+  </Heading>
+  {body && <p class="mt-5 text-base leading-relaxed text-text-muted sm:text-lg">{body}</p>}
+  {
+    reference && (
+      <p class="micro-note mt-6 text-text-faint">
+        {reference}
+      </p>
+    )
+  }
+</div>

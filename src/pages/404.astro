@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Section from '../components/ui/Section.astro';
+import Button from '../components/ui/Button.astro';
+---
+
+<BaseLayout title="Page Not Found" description="This page could not be found." noindex>
+  <Section>
+    <Container class="text-center">
+      <p class="micro-label text-accent">404</p>
+      <h1 class="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+        This page could not be found.
+      </h1>
+      <p class="mt-4 text-text-muted">
+        The address may be incorrect, or the page may have moved.
+      </p>
+      <div class="mt-8 flex justify-center">
+        <Button href="/">Back to Macmo</Button>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

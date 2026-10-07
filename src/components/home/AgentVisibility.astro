@@ -1,0 +1,71 @@
+---
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import StateChip from '../ui/StateChip.astro';
+import Badge from '../ui/Badge.astro';
+import { visibility } from '../../data/features';
+import { CONCEPT_AGENTS } from '../../data/agents';
+import { stateById } from '../../data/states';
+---
+
+<Section id={visibility.id}>
+  <Container>
+    <div class="flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
+      <SectionHeading
+        kicker={visibility.kicker}
+        title={visibility.title}
+        body={visibility.body}
+        reference={visibility.reference}
+      />
+
+    <div class="w-full lg:max-w-md">
+      <div class="mb-3 flex items-center justify-between gap-4">
+        <p class="micro-label">Agents</p>
+        <Badge tone="planned">Concept UI</Badge>
+      </div>
+
+      <div class="window-chrome overflow-hidden">
+        <div class="flex items-center gap-2 px-4 py-3 hairline-b">
+          <span class="size-2.5 rounded-full bg-[#FF5F57]" aria-hidden="true"></span>
+          <span class="size-2.5 rounded-full bg-[#FEBC2E]" aria-hidden="true"></span>
+          <span class="size-2.5 rounded-full bg-[#28C840]" aria-hidden="true"></span>
+          <span class="micro-label ml-2">Macmo — Agents</span>
+        </div>
+
+        <ul>
+          {
+            CONCEPT_AGENTS.map((agent) => {
+              const state = stateById(agent.stateId);
+              return (
+                <li class="flex items-center justify-between gap-4 px-4 py-3.5 hairline-b last:border-b-0">
+                  <span class="flex items-center gap-3">
+                    <span
+                      class="flex size-8 items-center justify-center rounded-[7px] bg-surface-raised text-[0.7rem] font-semibold text-text-muted hairline"
+                      aria-hidden="true"
+                    >
+                      {agent.name.slice(0, 2).toUpperCase()}
+                    </span>
+                    <span class="text-sm font-medium">{agent.name}</span>
+                  </span>
+                  {state && (
+                    <StateChip
+                      label={state.id}
+                      tone={state.tone}
+                      pulse={agent.stateId === 'WORKING'}
+                    />
+                  )}
+                </li>
+              );
+            })
+          }
+        </ul>
+      </div>
+
+      <p class="micro-note mt-3 text-text-faint">
+        {visibility.footnote}
+      </p>
+    </div>
+    </div>
+  </Container>
+</Section>

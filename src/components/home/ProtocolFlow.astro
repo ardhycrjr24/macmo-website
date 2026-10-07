@@ -1,0 +1,47 @@
+---
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { protocol } from '../../data/features';
+import { PROTOCOL_STEPS } from '../../data/protocol';
+---
+
+<Section id={protocol.id}>
+  <Container>
+    <SectionHeading
+      kicker={protocol.kicker}
+      title={protocol.title}
+      body={protocol.body}
+      reference={protocol.reference}
+    />
+
+    <div class="mt-12 flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-16">
+      <ol class="w-full max-w-2xl">
+        {
+          PROTOCOL_STEPS.map((step, index) => (
+            <li>
+              <div class="flex items-start gap-4 rounded-card bg-surface p-5 hairline">
+                <span class="micro-label mt-1 text-accent">{step.index}</span>
+                <div class="min-w-0">
+                  <p class="text-sm font-medium text-text">{step.label}</p>
+                  <p class="mt-1.5 text-sm text-text-muted">{step.detail}</p>
+                </div>
+              </div>
+              {index < PROTOCOL_STEPS.length - 1 && (
+                <p class="py-2 pl-6 text-center text-text-faint" aria-hidden="true">
+                  ↓
+                </p>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+
+      <p class="max-w-sm text-sm leading-relaxed text-text-muted lg:mt-2">
+        This separation is critical: agent-specific behavior belongs in adapters,
+        while Macmo operates on normalized events and states — so adding a new
+        runtime does not mean redesigning the core.
+      </p>
+    </div>
+  </Container>
+</Section>

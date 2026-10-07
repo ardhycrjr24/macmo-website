@@ -1,0 +1,97 @@
+---
+import Logo from './Logo.astro';
+import Badge from '../ui/Badge.astro';
+import Container from '../ui/Container.astro';
+import { nav, site } from '../../data/site';
+---
+
+<header class="hairline-b sticky top-0 z-50 bg-base">
+  <Container class="flex h-16 items-center justify-between gap-6">
+    <a href="/" class="flex items-center" aria-label="Macmo — home">
+      <Logo />
+    </a>
+
+    <nav aria-label="Primary" class="hidden items-center gap-8 md:flex">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class="text-sm text-text-muted transition-colors hover:text-text"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <Badge tone="accent" class="hidden sm:inline-flex">{site.status}</Badge>
+      <button
+        type="button"
+        id="nav-toggle"
+        class="inline-flex size-9 items-center justify-center rounded-card hairline bg-surface text-text-muted md:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label="Open navigation menu"
+      >
+        <svg class="size-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+        </svg>
+      </button>
+    </div>
+  </Container>
+
+  <nav
+    id="mobile-nav"
+    aria-label="Primary mobile"
+    class="hairline-t hidden bg-base px-5 py-4 md:hidden"
+  >
+    <ul class="flex flex-col gap-1">
+      {
+        nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="block rounded-card px-3 py-2.5 text-sm text-text-muted transition-colors hover:bg-surface hover:text-text"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+      <li class="pt-2 sm:hidden">
+        <Badge tone="accent">{site.status}</Badge>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+{/* Single permitted client-side interaction: mobile navigation toggle. */}
+<script is:inline>
+  (() => {
+    const toggle = document.getElementById('nav-toggle');
+    const menu = document.getElementById('mobile-nav');
+    if (!toggle || !menu) return;
+
+    const setOpen = (open) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute(
+        'aria-label',
+        open ? 'Close navigation menu' : 'Open navigation menu'
+      );
+      menu.classList.toggle('hidden', !open);
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => setOpen(false));
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    });
+  })();
+</script>

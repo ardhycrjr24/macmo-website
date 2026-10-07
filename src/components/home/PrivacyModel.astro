@@ -1,0 +1,46 @@
+---
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { privacy } from '../../data/features';
+---
+
+<Section id={privacy.id}>
+  <Container>
+    <SectionHeading
+      kicker={privacy.kicker}
+      title={privacy.title}
+      body={privacy.body}
+      reference={privacy.reference}
+    />
+
+    <ul class="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        privacy.items.map((item) => (
+          <li class="rounded-card bg-surface p-5 hairline">
+            <p class="text-sm font-medium text-text">{item.label}</p>
+            <p class="mt-2 text-sm text-text-muted">{item.detail}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-8 rounded-card bg-surface p-6 hairline">
+      <p class="micro-label text-accent">Default model</p>
+      <p class="mt-4 font-mono text-sm text-text-muted">
+        Your Agents <span class="text-text-faint">↓</span><br />
+        Your Mac <span class="text-text-faint">↓</span><br />
+        Macmo
+      </p>
+      <p class="mt-4 text-sm text-text-muted">
+        No mandatory cloud service. Telemetry is not required for V1.
+      </p>
+      <a
+        href="/privacy"
+        class="mt-4 inline-block text-sm text-accent underline-offset-4 hover:underline"
+      >
+        Read the privacy page
+      </a>
+    </div>
+  </Container>
+</Section>
